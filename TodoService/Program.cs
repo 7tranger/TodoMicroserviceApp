@@ -3,19 +3,24 @@ using TodoService.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddOpenApi();
-builder.Services
-  .AddDbContext<TodoContext>(opt =>
+builder.Services.AddDbContext<TodoContext>(opt =>
     opt.UseSqlServer(builder.Configuration.GetConnectionString("TodoDb")));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddControllers();
 
 
 var app = builder.Build();
 
+
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Todo API V1");
+        c.RoutePrefix = string.Empty; // Swagger UI доступен по корню
+    });
 }
 
 app.UseHttpsRedirection();
