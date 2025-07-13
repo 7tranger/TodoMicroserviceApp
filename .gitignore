@@ -1,0 +1,14 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Build artefacts
+bin/
+obj/
+
+# EF migrations history
+TodoService/Migrations/
+
+# Другие временные файлы
+*.log
